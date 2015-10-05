@@ -7,9 +7,9 @@ namespace FubuMVC.LightningQueues
 {
     public class LightningQueuesReplyChannel : IChannel
     {
-        private readonly IQueueManager _queueManager;
+        private readonly Queue _queueManager;
 
-        public LightningQueuesReplyChannel(Uri destination, IQueueManager queueManager)
+        public LightningQueuesReplyChannel(Uri destination, Queue queueManager)
         {
             _queueManager = queueManager;
             Address = destination;

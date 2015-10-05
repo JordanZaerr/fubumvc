@@ -7,7 +7,7 @@ using FubuMVC.Core.ServiceBus.Runtime;
 using FubuMVC.Core.ServiceBus.Runtime.Delayed;
 using FubuMVC.Tests.ServiceBus;
 using FubuMVC.Tests.TestSupport;
-using LightningQueues.Model;
+using LightningQueues;
 using NUnit.Framework;
 using Shouldly;
 
@@ -30,9 +30,9 @@ namespace FubuMVC.LightningQueues.Testing
             node.Incoming = true;
 
             var delayedCache = new DelayedMessageCache<MessageId>();
-            queues = new PersistentQueues(new RecordingLogger(), delayedCache, new LightningQueueSettings());
+            queues = new PersistentQueues(new RecordingLogger());
             queues.ClearAll();
-            transport = new LightningQueuesTransport(queues, new LightningQueueSettings(), delayedCache);
+            transport = new LightningQueuesTransport(queues, new LightningQueueSettings());
 
             transport.OpenChannels(graph);
         }

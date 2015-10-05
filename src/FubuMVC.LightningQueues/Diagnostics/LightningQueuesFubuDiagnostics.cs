@@ -33,18 +33,18 @@ namespace FubuMVC.LightningQueues.Diagnostics
 
     public class QueueManagerModel
     {
-        public QueueManagerModel(IQueueManager queueManager, IUrlRegistry urls)
+        public QueueManagerModel(Queue queueManager, IUrlRegistry urls)
         {
-            Queues = new QueueManagerTableTag(queueManager, urls);
-            EnableProcessedMessageHistory = queueManager.Configuration.EnableProcessedMessageHistory;
-            EnableOutgoingMessageHistory = queueManager.Configuration.EnableOutgoingMessageHistory;
-            Path = queueManager.Path;
-            Port = queueManager.Endpoint.Port;
-            OldestMessageInOutgoingHistory = queueManager.Configuration.OldestMessageInOutgoingHistory;
-            OldestMessageInProcessedHistory = queueManager.Configuration.OldestMessageInProcessedHistory;
-            NumberOfMessagesToKeepInOutgoingHistory = queueManager.Configuration.NumberOfMessagesToKeepInOutgoingHistory;
-            NumberOfMessagesToKeepInProcessedHistory = queueManager.Configuration.NumberOfMessagesToKeepInProcessedHistory;
-            NumberOfMessagIdsToKeep = queueManager.Configuration.NumberOfReceivedMessageIdsToKeep;
+            //Queues = new QueueManagerTableTag(queueManager, urls);
+            //EnableProcessedMessageHistory = queueManager.Configuration.EnableProcessedMessageHistory;
+            //EnableOutgoingMessageHistory = queueManager.Configuration.EnableOutgoingMessageHistory;
+            //Path = queueManager.Path;
+            //Port = queueManager.Endpoint.Port;
+            //OldestMessageInOutgoingHistory = queueManager.Configuration.OldestMessageInOutgoingHistory;
+            //OldestMessageInProcessedHistory = queueManager.Configuration.OldestMessageInProcessedHistory;
+            //NumberOfMessagesToKeepInOutgoingHistory = queueManager.Configuration.NumberOfMessagesToKeepInOutgoingHistory;
+            //NumberOfMessagesToKeepInProcessedHistory = queueManager.Configuration.NumberOfMessagesToKeepInProcessedHistory;
+            //NumberOfMessagIdsToKeep = queueManager.Configuration.NumberOfReceivedMessageIdsToKeep;
         }
 
         public int Port { get; set; }
@@ -66,7 +66,7 @@ namespace FubuMVC.LightningQueues.Diagnostics
 
     public class QueueManagerTableTag : TableTag
     {
-        public QueueManagerTableTag(IQueueManager queueManager, IUrlRegistry urls)
+        public QueueManagerTableTag(Queue queueManager, IUrlRegistry urls)
         {
             AddClass("table");
 
@@ -85,15 +85,16 @@ namespace FubuMVC.LightningQueues.Diagnostics
             AddBodyRow(row => addQueueRow(row, queueManager, "outgoing_history", urls, "N/A"));
         }
 
-        private void addQueueRow(TableRowTag row, IQueueManager queueManager, string queueName, IUrlRegistry urls, string displayForCount = null)
+        private void addQueueRow(TableRowTag row, Queue queueManager, string queueName, IUrlRegistry urls, string displayForCount = null)
         {
-            var url = urls.UrlFor(new MessagesInputModel {Port = queueManager.Endpoint.Port, QueueName = queueName});
+            var url = urls.UrlFor(new MessagesInputModel { Port = queueManager.Endpoint.Port, QueueName = queueName });
 
             row.Cell().Add("a")
                 .Attr("href", url)
                 .Text(queueName);
-            
-            row.Cell(displayForCount ?? queueManager.GetNumberOfMessages(queueName).ToString(CultureInfo.InvariantCulture));
+
+            //todo get accurate count from storage, or rx stream
+            row.Cell(displayForCount ?? "0");//queueManager.GetNumberOfMessages(queueName).ToString(CultureInfo.InvariantCulture));
         }
     }
 }

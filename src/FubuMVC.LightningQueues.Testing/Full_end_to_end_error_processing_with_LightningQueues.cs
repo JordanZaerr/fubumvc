@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
 using FubuCore;
 using FubuMVC.Core;
 using FubuMVC.Core.ServiceBus;
@@ -10,7 +12,6 @@ using FubuMVC.Tests.TestSupport;
 using LightningQueues;
 using NUnit.Framework;
 using Shouldly;
-using StructureMap;
 using TestMessages.ScenarioSupport;
 
 namespace FubuMVC.LightningQueues.Testing
@@ -20,7 +21,7 @@ namespace FubuMVC.LightningQueues.Testing
     {
         private FubuRuntime _runtime;
         private IServiceBus theServiceBus;
-        private IQueueManager _queueManager;
+        private Queue _queueManager;
         private OneMessage message1;
 
         [TestFixtureSetUp]
@@ -53,13 +54,14 @@ namespace FubuMVC.LightningQueues.Testing
         }
 
         [Test]
-        public void requeues_then_moves_to_error_queue()
+        public async Task requeues_then_moves_to_error_queue()
         {
             Wait.Until(() => TestMessageRecorder.HasProcessed(message1)).ShouldBeTrue();
             Wait.Until(() => TestMessageRecorder.AllProcessed.Length == 5).ShouldBeTrue();
 
-            var scope = _queueManager.BeginTransactionalScope();
-            var message = scope.Receive(LightningQueuesTransport.ErrorQueueName, 5.Seconds());
+            //todo need timeout
+            var messageContext = await _queueManager.Receive(LightningQueuesTransport.ErrorQueueName).FirstAsync();
+            var message = messageContext.Message;
             message.ShouldNotBeNull();
 
 
@@ -92,7 +94,7 @@ namespace FubuMVC.LightningQueues.Testing
         }
     }
 
-    public class ThrowingHandler<T> where T : Message
+    public class ThrowingHandler<T> where T : TestMessages.ScenarioSupport.Message
     {
         public void Handle(T message)
         {

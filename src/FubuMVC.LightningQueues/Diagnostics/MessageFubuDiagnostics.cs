@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using FubuMVC.Core.Runtime;
 using FubuMVC.Core.ServiceBus.ErrorHandling;
@@ -7,8 +8,7 @@ using FubuMVC.Core.ServiceBus.Runtime.Headers;
 using FubuMVC.Core.ServiceBus.Runtime.Serializers;
 using FubuMVC.Core.Services;
 using HtmlTags;
-using LightningQueues.Model;
-using LightningQueues.Storage;
+using LightningQueues;
 
 namespace FubuMVC.LightningQueues.Diagnostics
 {
@@ -56,7 +56,6 @@ namespace FubuMVC.LightningQueues.Diagnostics
                 MessageId = messageId,
                 QueueName = message.Queue,
                 SubQueueName = message.SubQueue,
-                Status = message.Status,
                 SentAt = message.SentAt,
                 Headers = message.Headers,
                 Payload = envelope.Message
@@ -94,7 +93,7 @@ namespace FubuMVC.LightningQueues.Diagnostics
                 ExceptionText = errorReport.ExceptionText
             };
 
-            var envelope = new Envelope(new NameValueHeaders(message.Headers)) {Data = errorReport.RawData};
+            var envelope = new Envelope(new DictionaryHeaders(message.Headers)) {Data = errorReport.RawData};
             envelope.UseSerializer(_serializer);
 
             return new ErrorQueueMessageVisualization
@@ -102,7 +101,6 @@ namespace FubuMVC.LightningQueues.Diagnostics
                 MessageId = messageId,
                 QueueName = message.Queue,
                 SubQueueName = message.SubQueue,
-                Status = message.Status,
                 SentAt = message.SentAt,
                 Headers = message.Headers,
                 Payload = envelope.Message,
@@ -110,7 +108,7 @@ namespace FubuMVC.LightningQueues.Diagnostics
             };
         }
 
-        private PersistentMessage RetrieveMessage(MessageId messageId, int port, string queueName)
+        private Message RetrieveMessage(MessageId messageId, int port, string queueName)
         {
             var request = new QueueMessageRetrievalRequest
             {
@@ -132,9 +130,8 @@ namespace FubuMVC.LightningQueues.Diagnostics
         public MessageId MessageId { get; set; }
         public string QueueName { get; set; }
         public string SubQueueName { get; set; }
-        public MessageStatus Status { get; set; }
         public DateTime SentAt { get; set; }
-        public NameValueCollection Headers { get; set; }
+        public IDictionary<string, string> Headers { get; set; }
         public object Payload { get; set; }
 
         public string PayloadAsJson
@@ -147,10 +144,10 @@ namespace FubuMVC.LightningQueues.Diagnostics
             get
             {
                 var list = new HtmlTag("dl");
-                foreach (var key in Headers.AllKeys)
+                foreach (var pair in Headers)
                 {
-                    var label = new HtmlTag("dt").Text(key + ":");
-                    var value = new HtmlTag("dd").Text(Headers[key]);
+                    var label = new HtmlTag("dt").Text(pair.Key + ":");
+                    var value = new HtmlTag("dd").Text(pair.Value);
                     list.Append(label).Append(value);
                 }
 

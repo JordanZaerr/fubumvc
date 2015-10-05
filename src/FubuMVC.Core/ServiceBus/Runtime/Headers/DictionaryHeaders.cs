@@ -47,6 +47,11 @@ namespace FubuMVC.Core.ServiceBus.Runtime.Headers
             return values;
         }
 
+        public IDictionary<string, string> ToDictionary()
+        {
+            return _inner;
+        } 
+
         public bool Has(string key)
         {
             return _inner.ContainsKey(key);

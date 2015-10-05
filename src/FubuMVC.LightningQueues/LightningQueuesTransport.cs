@@ -3,25 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using FubuMVC.Core.ServiceBus.Configuration;
 using FubuMVC.Core.ServiceBus.Runtime;
-using FubuMVC.Core.ServiceBus.Runtime.Delayed;
-using LightningQueues.Model;
 
 namespace FubuMVC.LightningQueues
 {
     public class LightningQueuesTransport : TransportBase, ITransport
     {
-        public static readonly string DelayedQueueName = "delayed";
         public static readonly string ErrorQueueName = "errors";
 
         private readonly IPersistentQueues _queues;
         private readonly LightningQueueSettings _settings;
-        private readonly IDelayedMessageCache<MessageId> _delayedMessages;
 
-        public LightningQueuesTransport(IPersistentQueues queues, LightningQueueSettings settings, IDelayedMessageCache<MessageId> delayedMessages)
+        public LightningQueuesTransport(IPersistentQueues queues, LightningQueueSettings settings)
         {
             _queues = queues;
             _settings = settings;
-            _delayedMessages = delayedMessages;
         }
 
         public void Dispose()
@@ -50,7 +45,7 @@ namespace FubuMVC.LightningQueues
 
         public IEnumerable<EnvelopeToken> ReplayDelayed(DateTime currentTime)
         {
-            return _queues.ReplayDelayed(currentTime);
+            return Enumerable.Empty<EnvelopeToken>();
         }
 
         public void ClearAll()
@@ -60,7 +55,7 @@ namespace FubuMVC.LightningQueues
 
         protected override IChannel buildChannel(ChannelNode channelNode)
         {
-            return LightningQueuesChannel.Build(new LightningUri(channelNode.Uri), _queues, _delayedMessages, channelNode.Incoming);
+            return LightningQueuesChannel.Build(new LightningUri(channelNode.Uri), _queues, channelNode.Incoming);
         }
 
         protected override void seedQueues(IEnumerable<ChannelNode> channels)

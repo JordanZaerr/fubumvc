@@ -12,6 +12,7 @@ namespace FubuMVC.Core.ServiceBus.Runtime.Headers
         IEnumerable<string> Keys();
 
         NameValueCollection ToNameValues();
+        IDictionary<string, string> ToDictionary(); 
 
         bool Has(string key);
         void Remove(string key);

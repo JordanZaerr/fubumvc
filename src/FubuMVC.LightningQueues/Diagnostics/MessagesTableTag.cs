@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FubuMVC.Core.Urls;
 using HtmlTags;
-using LightningQueues.Model;
+using LightningQueues;
 
 namespace FubuMVC.LightningQueues.Diagnostics
 {
@@ -15,7 +15,7 @@ namespace FubuMVC.LightningQueues.Diagnostics
             : this(messages, urls, null, null) {}
 
         protected MessagesTableTag(IEnumerable<QueueMessage> messages, IUrlRegistry urls,
-            Action<TableRowTag> additionalHeaders, Action<TableRowTag, PersistentMessage> additionalColumns)
+            Action<TableRowTag> additionalHeaders, Action<TableRowTag, Message> additionalColumns)
         {
             _urls = urls;
             AddClass("table");
@@ -42,13 +42,12 @@ namespace FubuMVC.LightningQueues.Diagnostics
             var url = BuildUrlForMessage(queueMessage);
 
             row.Cell().Add("a").Attr("href", url).Text(message.Id.ToString());
-            row.Cell(message.Status.ToString());
             row.Cell(message.SentAt.ToString());
             var list = new HtmlTag("dl", row.Cell());
-            foreach (var key in message.Headers.AllKeys)
+            foreach (var pair in message.Headers)
             {
-                var label = new HtmlTag("dt").Text(key + ":");
-                var value = new HtmlTag("dd").Text(message.Headers[key]);
+                var label = new HtmlTag("dt").Text(pair.Key + ":");
+                var value = new HtmlTag("dd").Text(pair.Value);
                 list.Append(label).Append(value);
             }
         }
@@ -77,7 +76,7 @@ namespace FubuMVC.LightningQueues.Diagnostics
 
         private class QueueMessageInputModelBuilder<T> : IQueueMessageInputModelBuilder where T : MessageInputModel, new()
         {
-            public Func<PersistentMessage, bool> CanHandle { get; set; }
+            public Func<Message, bool> CanHandle { get; set; }
 
             public MessageInputModel ConstructInputModel()
             {
@@ -87,7 +86,7 @@ namespace FubuMVC.LightningQueues.Diagnostics
 
         private interface IQueueMessageInputModelBuilder
         {
-            Func<PersistentMessage, bool> CanHandle { get; set; }
+            Func<Message, bool> CanHandle { get; set; }
             MessageInputModel ConstructInputModel();
         }
     }
@@ -96,8 +95,8 @@ namespace FubuMVC.LightningQueues.Diagnostics
     {
         private static readonly Action<TableRowTag> AdditionalHeader =
             row => row.Header("Destination");
-        private static readonly Action<TableRowTag, PersistentMessage> AdditionalColumn =
-            (row, message) => row.Cell((message as PersistentMessageToSend).Endpoint.ToString());
+        private static readonly Action<TableRowTag, Message> AdditionalColumn =
+            (row, message) => row.Cell((message as OutgoingMessage).Destination.ToString());
 
         public SendingMessagesTableTag(IEnumerable<QueueMessage> messages, IUrlRegistry urls)
             : base(messages, urls, AdditionalHeader, AdditionalColumn) {}
@@ -105,7 +104,7 @@ namespace FubuMVC.LightningQueues.Diagnostics
 
     public class QueueMessage
     {
-        public PersistentMessage InternalMessage { get; set; }
+        public Message InternalMessage { get; set; }
         public string OriginalQueueName { get; set; }
         public int PortNumber { get; set; }
     }

@@ -4,6 +4,7 @@ nuget Castle.Core 3.2.1
 nuget Fixie ~> 1.0.0.29
 nuget Fleck 0.10.0.26
 nuget FubuLocalization 1.1.0.182
+nuget LightningDB 0.9.2.40
 nuget Microsoft.AspNet.Razor 2.0.20715.0
 nuget Microsoft.Data.Edm 5.6.0
 nuget Microsoft.Net.Http 2.0.20710.0
@@ -30,7 +31,6 @@ nuget BottleServiceRunner
 nuget DotNetZip
 nuget FubuCore 2.0.0.311
 nuget HtmlTags 3.0.0.187
-nuget LightningQueues 0.1.0.97
 nuget ManagedEsent
 nuget Microsoft.AspNet.WebApi.Client
 nuget Microsoft.AspNet.WebApi.Core
@@ -49,3 +49,9 @@ nuget Selenium.WebDriver
 nuget Selenium.WebDriverBackedSelenium
 nuget TopShelf
 nuget structuremap 3.2.0.221-alpha
+
+source http://nuget.org/api/v2
+source https://www.myget.org/F/aspnetvnext/api/v2
+source https://www.myget.org/F/lightning-queues
+nuget LightningQueues 0.2.0-dnx-27
+nuget LightningQueues.Storage.LMDB 0.2.0-dnx-27
