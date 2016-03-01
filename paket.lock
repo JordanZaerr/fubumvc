@@ -1,18 +1,28 @@
 NUGET
-  remote: http://nuget.org/api/v2
+  remote: https://www.myget.org/F/fubumvc-edge
   specs:
-    Bottles (2.1.0.584)
+    Bottles (3.0.0.618)
       FubuCore (>= 1.0.0.210)
-    BottleServiceRunner (2.0.0.576)
+    BottleServiceRunner (3.0.0.618)
       Bottles (>= 2.0)
-      Topshelf (3.1.2)
+      Topshelf (>= 3.1.3.0)
+  remote: http://www.nuget.org/api/v2
+  specs:
     Castle.Core (3.2.1)
-    DotNetZip (1.9.6)
-    Fixie (1.0.0.33)
+    DotNetZip (1.9.8)
+    Fixie (1.0.0.41)
     Fleck (0.10.0.26)
     FubuCore (2.0.0.311)
+    LightningDB (0.9.3-rc1-45)
+      System.Collections.Concurrent (>= 4.0.11-beta-23516) - framework: dnxcore50
+      System.IO.FileSystem (>= 4.0.1-beta-23516) - framework: dnxcore50
+      System.Linq (>= 4.0.1-beta-23516) - framework: dnxcore50
+      System.Net.Primitives (>= 4.0.11-beta-23516) - framework: dnxcore50
+      System.Runtime (>= 4.0.21-beta-23516) - framework: dnxcore50
+      System.Runtime.InteropServices (>= 4.0.21-beta-23516) - framework: dnxcore50
+      System.Threading (>= 4.0.11-beta-23516) - framework: dnxcore50
     ManagedEsent (1.9.3.2)
-    Microsoft.AspNet.Razor (2.0.20715.0)
+    Microsoft.AspNet.Razor (2.0.20715)
     Microsoft.AspNet.WebApi.Client (4.0.30506)
       Microsoft.Net.Http (>= 2.0.20710.0)
       Newtonsoft.Json (>= 4.5.6)
@@ -30,20 +40,20 @@ NUGET
       System.Spatial (5.6.0)
     Microsoft.Data.Services.Client (5.6.0)
       Microsoft.Data.OData (5.6.0)
-    Microsoft.Net.Http (2.0.20710.0)
-    Microsoft.Owin (3.0.1.0)
+    Microsoft.Net.Http (2.0.20710)
+    Microsoft.Owin (3.0.1)
       Owin (>= 1.0)
-    Microsoft.Owin.Host.HttpListener (3.0.1.0)
-    Microsoft.Owin.Hosting (3.0.1.0)
+    Microsoft.Owin.Host.HttpListener (3.0.1)
+    Microsoft.Owin.Hosting (3.0.1)
       Microsoft.Owin (>= 3.0.1)
       Owin (>= 1.0)
     Microsoft.Web.Infrastructure (1.0.0)
-    Microsoft.WindowsAzure.ConfigurationManager (3.1.0)
+    Microsoft.WindowsAzure.ConfigurationManager (3.2.1)
     Newtonsoft.Json (5.0.8)
     NLog (2.1)
-    Nowin (0.16.0.0)
+    Nowin (0.16.0)
     Owin (1.0)
-    PowerThreading (20120420.0.0)
+    PowerThreading (20120420.0)
     RavenDB.Client (2.5.2750)
       Microsoft.CompilerServices.AsyncTargetingPack
     RavenDB.Database (2.5.2750)
@@ -57,20 +67,105 @@ NUGET
       RavenDB.Client (2.5.2750)
       RavenDB.Database (2.5.2750)
     RhinoMocks (3.6.1)
-    Selenium.RC (2.48.0)
-    Selenium.Support (2.48.0)
-      Selenium.WebDriver (>= 2.48.0)
-    Selenium.WebDriver (2.48.0)
-    Selenium.WebDriverBackedSelenium (2.48.0)
-      Selenium.RC (>= 2.48.0)
-      Selenium.WebDriver (>= 2.48.0)
+    Rx-Core (2.2.5) - framework: >= net46, dnx451, dnxcore50
+      Rx-Interfaces (>= 2.2.5)
+    Rx-Interfaces (2.2.5) - framework: >= net46, dnx451, dnxcore50
+    Rx-Linq (2.2.5) - framework: >= net46, dnx451, dnxcore50
+      Rx-Core (>= 2.2.5)
+      Rx-Interfaces (>= 2.2.5)
+    Rx-Main (2.2.5) - framework: >= net46, dnx451, dnxcore50
+      Rx-Core (>= 2.2.5)
+      Rx-Interfaces (>= 2.2.5)
+      Rx-Linq (>= 2.2.5)
+      Rx-PlatformServices (>= 2.2.5)
+    Rx-PlatformServices (2.2.5) - framework: >= net46, dnx451, dnxcore50
+      Rx-Core (>= 2.2.5)
+      Rx-Interfaces (>= 2.2.5)
+    Selenium.RC (2.52.0)
+    Selenium.Support (2.52.0)
+      Selenium.WebDriver (>= 2.52.0)
+    Selenium.WebDriver (2.52.0)
+    Selenium.WebDriverBackedSelenium (2.52.0)
+      Selenium.RC (>= 2.52.0)
+      Selenium.WebDriver (>= 2.52.0)
     Shouldly (2.5.0)
-    Spark (1.7.5.0)
+    Spark (1.7.5)
     Storyteller (3.0.0.325-rc)
     structuremap (4.0.0.272-alpha)
-    System.Spatial (5.6.0.0)
-    Topshelf (3.1.2)
-    WindowsAzure.Storage (3.0.1.0)
+    System.Diagnostics.Contracts (4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+    System.Diagnostics.Debug (4.0.10) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+    System.Diagnostics.Tracing (4.0.20) - framework: dnxcore50
+      System.Collections (>= 4.0.10) - framework: dnxcore50
+      System.Globalization (>= 4.0.0) - framework: dnxcore50
+      System.Reflection (>= 4.0.10) - framework: dnxcore50
+      System.Reflection.Extensions (>= 4.0.0) - framework: dnxcore50
+      System.Resources.ResourceManager (>= 4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.20) - framework: dnxcore50
+      System.Runtime.Extensions (>= 4.0.10) - framework: dnxcore50
+      System.Runtime.InteropServices (>= 4.0.0) - framework: dnxcore50
+      System.Text.Encoding (>= 4.0.0) - framework: dnxcore50
+      System.Threading (>= 4.0.10) - framework: dnxcore50
+    System.Globalization (4.0.10) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+    System.IO (4.0.10) - framework: dnxcore50
+      System.Globalization (>= 4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.20) - framework: dnxcore50
+      System.Text.Encoding (>= 4.0.0) - framework: dnxcore50
+      System.Text.Encoding (>= 4.0.10) - framework: dnxcore50
+      System.Text.Encoding.Extensions (>= 4.0.0) - framework: dnxcore50
+      System.Threading (>= 4.0.0) - framework: dnxcore50
+      System.Threading.Tasks (>= 4.0.0) - framework: dnxcore50
+    System.IO.FileSystem.Primitives (4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.20) - framework: dnxcore50
+    System.Reflection (4.0.10) - framework: dnxcore50
+      System.IO (>= 4.0.0) - framework: dnxcore50
+      System.Reflection.Primitives (>= 4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.20) - framework: dnxcore50
+    System.Reflection.Extensions (4.0.0) - framework: dnxcore50
+      System.Diagnostics.Debug (>= 4.0.10) - framework: dnxcore50
+      System.Reflection (>= 4.0.0) - framework: dnxcore50
+      System.Reflection (>= 4.0.10) - framework: dnxcore50
+      System.Reflection.Primitives (>= 4.0.0) - framework: dnxcore50
+      System.Reflection.TypeExtensions (>= 4.0.0) - framework: dnxcore50
+      System.Resources.ResourceManager (>= 4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.20) - framework: dnxcore50
+      System.Runtime.Extensions (>= 4.0.10) - framework: dnxcore50
+    System.Reflection.Primitives (4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+      System.Threading (>= 4.0.0) - framework: dnxcore50
+    System.Reflection.TypeExtensions (4.0.0) - framework: dnxcore50
+      System.Diagnostics.Contracts (>= 4.0.0) - framework: dnxcore50
+      System.Diagnostics.Debug (>= 4.0.10) - framework: dnxcore50
+      System.Linq (>= 4.0.0) - framework: dnxcore50
+      System.Reflection (>= 4.0.0) - framework: dnxcore50
+      System.Reflection (>= 4.0.10) - framework: dnxcore50
+      System.Reflection.Primitives (>= 4.0.0) - framework: dnxcore50
+      System.Resources.ResourceManager (>= 4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.20) - framework: dnxcore50
+      System.Runtime.Extensions (>= 4.0.10) - framework: dnxcore50
+    System.Resources.ResourceManager (4.0.0) - framework: dnxcore50
+      System.Globalization (>= 4.0.0) - framework: dnxcore50
+      System.Reflection (>= 4.0.0) - framework: dnxcore50
+      System.Reflection (>= 4.0.10) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.20) - framework: dnxcore50
+    System.Runtime.Handles (4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+    System.Spatial (5.6.0)
+    System.Text.Encoding (4.0.10) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+    System.Text.Encoding.Extensions (4.0.10) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+      System.Text.Encoding (>= 4.0.10) - framework: dnxcore50
+    System.Threading.Tasks (4.0.10) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+    Topshelf (3.3.1)
+    WindowsAzure.Storage (3.0.1)
       Microsoft.Data.OData (>= 5.6.0)
       Microsoft.Data.Services.Client (>= 5.6.0)
       Microsoft.WindowsAzure.ConfigurationManager (>= 1.8.0.0)
@@ -78,6 +173,76 @@ NUGET
   remote: http://build.fubu-project.org/guestAuth/app/nuget/v1/FeedService.svc
   specs:
     HtmlTags (3.0.0.187)
-    LightningQueues (0.1.0.97)
-      FubuCore (>= 1.1.0.256)
-      NLog
+    LightningQueues (0.2.0-dnx-27)
+      Rx-Main (>= 2.2.5) - framework: >= net46, dnx451, dnxcore50
+      System.Collections (>= 4.0.11-beta-23326) - framework: dnxcore50
+      System.ComponentModel (>= 4.0.1-beta-23326) - framework: dnxcore50
+      System.Linq (>= 4.0.1-beta-23326) - framework: dnxcore50
+      System.Net.Primitives (>= 4.0.11-beta-23326) - framework: dnxcore50
+      System.Net.Sockets (>= 4.1.0-beta-23220) - framework: dnxcore50
+      System.Runtime (>= 4.0.21-beta-23326) - framework: dnxcore50
+      System.Runtime.Extensions (>= 4.0.11-beta-23326) - framework: dnxcore50
+      System.Threading (>= 4.0.11-beta-23326) - framework: dnxcore50
+    LightningQueues.Storage.LMDB (0.2.0-dnx-27)
+      LightningDB (>= 0.9.2.40) - framework: >= net46, dnx451, dnxcore50
+      LightningQueues (>= 0.2.0-dnx-27) - framework: >= net46, dnx451, dnxcore50
+  remote: https://www.myget.org/F/aspnetvnext/api/v2
+  specs:
+    System.Collections (4.0.11-rc2-23819) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+    System.Collections.Concurrent (4.0.12-rc2-23819) - framework: dnxcore50
+      System.Collections (>= 4.0.10) - framework: dnxcore50
+      System.Diagnostics.Debug (>= 4.0.10) - framework: dnxcore50
+      System.Diagnostics.Tracing (>= 4.0.20) - framework: dnxcore50
+      System.Globalization (>= 4.0.10) - framework: dnxcore50
+      System.Reflection (>= 4.0.10) - framework: dnxcore50
+      System.Resources.ResourceManager (>= 4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.20) - framework: dnxcore50
+      System.Runtime.Extensions (>= 4.0.10) - framework: dnxcore50
+      System.Threading (>= 4.0.10) - framework: dnxcore50
+      System.Threading.Tasks (>= 4.0.0) - framework: dnxcore50
+      System.Threading.Tasks (>= 4.0.10) - framework: dnxcore50
+    System.ComponentModel (4.0.1-rc2-23819) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.20) - framework: dnxcore50
+    System.IO.FileSystem (4.0.1-rc2-23819) - framework: dnxcore50
+      System.IO (>= 4.0.0) - framework: dnxcore50
+      System.IO.FileSystem.Primitives (>= 4.0.0) - framework: >= net46, dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+      System.Runtime.Handles (>= 4.0.0) - framework: dnxcore50
+      System.Text.Encoding (>= 4.0.0) - framework: dnxcore50
+      System.Threading.Tasks (>= 4.0.0) - framework: dnxcore50
+    System.Linq (4.1.0-rc2-23819) - framework: dnxcore50
+      System.Collections (>= 4.0.0) - framework: dnxcore50
+      System.Collections (>= 4.0.10) - framework: dnxcore50
+      System.Diagnostics.Debug (>= 4.0.10) - framework: dnxcore50
+      System.Resources.ResourceManager (>= 4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.20) - framework: dnxcore50
+      System.Runtime.Extensions (>= 4.0.10) - framework: dnxcore50
+    System.Net.Primitives (4.0.11-rc2-23819) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+      System.Runtime.Handles (>= 4.0.0) - framework: dnxcore50
+    System.Net.Sockets (4.1.0-rc2-23819) - framework: dnxcore50
+      System.IO (>= 4.0.0) - framework: dnxcore50
+      System.Net.Primitives (>= 4.0.10) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+      System.Threading.Tasks (>= 4.0.0) - framework: dnxcore50
+    System.Runtime (4.1.0-rc2-23819) - framework: dnxcore50
+    System.Runtime.Extensions (4.1.0-rc2-23819) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.20) - framework: dnxcore50
+    System.Runtime.InteropServices (4.1.0-rc2-23819) - framework: dnxcore50
+      System.Reflection (>= 4.0.0) - framework: dnxcore50
+      System.Reflection.Primitives (>= 4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+      System.Runtime (>= 4.1.0-rc2-23819) - framework: >= net46, dnxcore50
+      System.Runtime.Handles (>= 4.0.0) - framework: dnxcore50
+      System.Runtime.InteropServices.PInvoke (>= 4.0.0-rc2-23819) - framework: >= net46, dnxcore50
+    System.Runtime.InteropServices.PInvoke (4.0.0-rc2-23819) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+      System.Runtime.Handles (>= 4.0.0) - framework: dnxcore50
+    System.Threading (4.0.11-rc2-23819) - framework: dnxcore50
+      System.Runtime (>= 4.0.0) - framework: dnxcore50
+      System.Threading.Tasks (>= 4.0.0) - framework: dnxcore50

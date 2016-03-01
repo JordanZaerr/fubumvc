@@ -87,3 +87,6 @@ src/FubuMVC.IntegrationTesting/local.config
 packages
 src/ServiceNode/fubutransportation.esent.2215/fubutransportation.esent.2215
 *.chk
+.vs/
+src/FubuMVC.IntegrationTesting/lmdb.dll
+src/FubuMVC.IntegrationTesting/fubutransportationqueues-2216/
