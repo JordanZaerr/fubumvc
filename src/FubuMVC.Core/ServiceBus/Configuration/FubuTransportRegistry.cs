@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using FubuCore;
 using FubuCore.Reflection;
@@ -152,6 +153,12 @@ namespace FubuMVC.Core.ServiceBus.Configuration
             public ChannelExpression DefaultContentType(string contentType)
             {
                 alter = node => node.DefaultContentType = contentType;
+                return this;
+            }
+
+            public ChannelExpression SecureWithCertificate(X509Certificate certificate)
+            {
+                alter = node => node.TransportCertificate = certificate;
                 return this;
             }
 

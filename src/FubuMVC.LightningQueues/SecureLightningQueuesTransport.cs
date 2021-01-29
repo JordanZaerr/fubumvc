@@ -7,14 +7,14 @@ using FubuMVC.Core.ServiceBus.Runtime;
 
 namespace FubuMVC.LightningQueues
 {
-    public class LightningQueuesTransport : TransportBase, ITransport
+    public class SecureLightningQueuesTransport : TransportBase, ITransport
     {
         public static readonly string ErrorQueueName = "errors";
 
         private readonly IPersistentQueues _queues;
         private readonly LightningQueueSettings _settings;
 
-        public LightningQueuesTransport(IPersistentQueues queues, LightningQueueSettings settings)
+        public SecureLightningQueuesTransport(IPersistentQueues queues, LightningQueueSettings settings)
         {
             _queues = queues;
             _settings = settings;
@@ -25,7 +25,7 @@ namespace FubuMVC.LightningQueues
             // IPersistentQueues is disposable
         }
 
-        public override string Protocol => LightningUri.Protocol;
+        public override string Protocol => SecureLightningUri.Protocol;
 
         public override bool Disabled(IEnumerable<ChannelNode> nodes)
         {
@@ -36,9 +36,10 @@ namespace FubuMVC.LightningQueues
             return false;
         }
 
-        public IChannel BuildDestinationChannel(Uri destination, X509Certificate certificate = null)
+        public IChannel BuildDestinationChannel(Uri destination, X509Certificate certificate)
         {
-            var lqUri = new LightningUri(destination);
+            //This is probably going to break volatile subscribers
+            var lqUri = new SecureLightningUri(destination, certificate);
             return new LightningQueuesReplyChannel(destination, _queues.ManagerForReply(certificate), lqUri.QueueName);
         }
 
@@ -54,7 +55,7 @@ namespace FubuMVC.LightningQueues
 
         protected override IChannel buildChannel(ChannelNode channelNode)
         {
-            var uri = new LightningUri(channelNode.Uri);
+            var uri = new SecureLightningUri(channelNode.Uri, channelNode.TransportCertificate);
             return channelNode.Mode == ChannelMode.DeliveryGuaranteed
                 ? LightningQueuesChannel.BuildPersistentChannel(uri, _queues, _settings.MapSize, _settings.MaxDatabases, channelNode.Incoming, channelNode.TransportCertificate)
                 : LightningQueuesChannel.BuildNoPersistenceChannel(uri, _queues, channelNode.Incoming, channelNode.TransportCertificate);
@@ -72,13 +73,13 @@ namespace FubuMVC.LightningQueues
             }
 
 
-            _queues.Start(channels.Where(x => x.Incoming).Select(x => new LightningUri(x.Uri)));
+            _queues.Start(channels.Where(x => x.Incoming).Select(x => new SecureLightningUri(x.Uri, x.TransportCertificate)));
         }
 
         protected override Uri getReplyUri(ChannelGraph graph)
         {
-            var channelNode = graph.FirstOrDefault(x => x.Protocol() == LightningUri.Protocol && x.Incoming && x.Mode == ChannelMode.DeliveryGuaranteed)
-                ?? graph.FirstOrDefault(x => x.Protocol() == LightningUri.Protocol && x.Incoming && x.Mode == ChannelMode.DeliveryFastWithoutGuarantee);
+            var channelNode = graph.FirstOrDefault(x => x.Protocol() == SecureLightningUri.Protocol && x.Incoming && x.Mode == ChannelMode.DeliveryGuaranteed)
+                              ?? graph.FirstOrDefault(x => x.Protocol() == SecureLightningUri.Protocol && x.Incoming && x.Mode == ChannelMode.DeliveryFastWithoutGuarantee);
             if (channelNode == null)
                 throw new InvalidOperationException("You must have at least one incoming Lightning Queue channel for accepting replies");
 

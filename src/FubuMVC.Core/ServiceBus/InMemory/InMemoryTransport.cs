@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using FubuCore;
 using FubuCore.Descriptions;
 using FubuCore.Reflection;
@@ -39,7 +40,7 @@ namespace FubuMVC.Core.ServiceBus.InMemory
             get { return InMemoryChannel.Protocol; }
         }
 
-        public IChannel BuildDestinationChannel(Uri destination)
+        public IChannel BuildDestinationChannel(Uri destination, X509Certificate certificate = null)
         {
             return new InMemoryChannel(destination);
         }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -41,9 +41,10 @@ namespace FubuMVC.Core.ServiceBus.Subscriptions
                 {
                     Uri = uri,
                     Key = uri.ToString(),
-                    AcceptedContentTypes = _graph.GetAcceptedContentTypesForChannel(uri)
+                    AcceptedContentTypes = _graph.GetAcceptedContentTypesForChannel(uri),
+                    TransportCertificate = _graph.GetTransportCertificate(uri)
                 };
-                node.Channel = transport.BuildDestinationChannel(node.Uri);
+                node.Channel = transport.BuildDestinationChannel(node.Uri, node.TransportCertificate);
 
                 return node;
             });

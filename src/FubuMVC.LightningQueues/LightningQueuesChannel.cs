@@ -1,5 +1,6 @@
 using System;
 using System.Reactive.Disposables;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using FubuCore;
 using FubuMVC.Core.ServiceBus.Runtime;
@@ -16,15 +17,15 @@ namespace FubuMVC.LightningQueues
         private readonly Queue _queueManager;
         private IDisposable _disposable;
 
-        public static LightningQueuesChannel BuildPersistentChannel(LightningUri uri, IPersistentQueues queues, int mapSize, int maxDatabases, bool incoming)
+        public static LightningQueuesChannel BuildPersistentChannel(ITransportUri uri, IPersistentQueues queues, int mapSize, int maxDatabases, bool incoming, X509Certificate certificate = null)
         {
-            var queueManager = queues.PersistentManagerFor(uri.Port, incoming, mapSize, maxDatabases);
+            var queueManager = queues.PersistentManagerFor(uri.Port, incoming, mapSize, maxDatabases, certificate);
             return new LightningQueuesChannel(uri.Address, uri.QueueName, queueManager);
         }
 
-        public static LightningQueuesChannel BuildNoPersistenceChannel(LightningUri uri, IPersistentQueues queues, bool incoming)
+        public static LightningQueuesChannel BuildNoPersistenceChannel(ITransportUri uri, IPersistentQueues queues, bool incoming, X509Certificate certificate = null)
         {
-            var queueManager = queues.NonPersistentManagerFor(uri.Port, incoming);
+            var queueManager = queues.NonPersistentManagerFor(uri.Port, incoming, certificate);
             return new LightningQueuesChannel(uri.Address, uri.QueueName, queueManager);
         }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using FubuMVC.Core.Localization;
 using FubuMVC.Core.Security.AntiForgery;

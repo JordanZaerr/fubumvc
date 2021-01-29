@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using FubuMVC.Core.ServiceBus.Runtime;
 using FubuMVC.Core.ServiceBus.Runtime.Headers;
 

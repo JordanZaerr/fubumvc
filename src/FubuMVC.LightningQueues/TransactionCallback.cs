@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using FubuMVC.Core.ServiceBus.ErrorHandling;
 using FubuMVC.Core.ServiceBus.Runtime;
 using FubuMVC.Core.ServiceBus.Runtime.Invocation;
@@ -62,8 +63,7 @@ namespace FubuMVC.LightningQueues
 
         public void Send(Envelope envelope)
         {
-            var uri = new LightningUri(envelope.Destination);
-
+            var queueName = envelope.Destination.ToMachineUri().Segments.Last();
             var message = new OutgoingMessage
             {
                 Id = MessageId.GenerateRandom(),
@@ -71,7 +71,7 @@ namespace FubuMVC.LightningQueues
                 Headers = envelope.Headers.ToDictionary(),
                 SentAt = DateTime.UtcNow,
                 Destination = envelope.Destination,
-                Queue = uri.QueueName
+                Queue = queueName
             };
 
             message.TranslateHeaders();

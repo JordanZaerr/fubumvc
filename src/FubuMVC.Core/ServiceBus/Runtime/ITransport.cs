@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using FubuMVC.Core.ServiceBus.Configuration;
 
 namespace FubuMVC.Core.ServiceBus.Runtime
@@ -16,7 +17,7 @@ namespace FubuMVC.Core.ServiceBus.Runtime
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        IChannel BuildDestinationChannel(Uri destination);
+        IChannel BuildDestinationChannel(Uri destination, X509Certificate transportCertificate = null);
 
         IEnumerable<EnvelopeToken> ReplayDelayed(DateTime currentTime);
 

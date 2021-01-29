@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using FubuCore;
 using FubuCore.Logging;
 using FubuCore.Reflection;
@@ -187,7 +188,7 @@ namespace FubuMVC.Core.ServiceBus.Configuration
         public IEnumerable<string> AcceptedContentTypes { get; set; } = Enumerable.Empty<string>();
 
         public ChannelMode Mode { get; set; } = ChannelMode.DeliveryGuaranteed;
+
+        public X509Certificate TransportCertificate { get; set; }
     }
-
-
 }

@@ -1,17 +1,24 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
+using System.Security.Cryptography.X509Certificates;
 
 namespace FubuMVC.LightningQueues
 {
-    public class LightningUri
+    public interface ITransportUri
+    {
+        Uri Address { get; }
+        int Port { get; }
+        string QueueName { get; }
+        X509Certificate Certificate { get; }
+    }
+
+    public class LightningUri : ITransportUri
     {
         public static readonly string Protocol = "lq.tcp";
 
         public LightningUri(string uriString) : this(new Uri(uriString))
         {
-            
         }
 
         public LightningUri(Uri address)
@@ -33,6 +40,38 @@ namespace FubuMVC.LightningQueues
         public int Port { get; }
 
         public string QueueName { get; }
+        public X509Certificate Certificate => null;
+    }
+
+    public class SecureLightningUri : ITransportUri
+    {
+        public static readonly string Protocol = "lq.tcps";
+
+        public SecureLightningUri(string uriString, X509Certificate certificate) : this(new Uri(uriString), certificate)
+        {
+        }
+
+        public SecureLightningUri(Uri address, X509Certificate certificate)
+        {
+            if (address.Scheme != Protocol)
+            {
+                throw new ArgumentOutOfRangeException(
+                    $"{address.Scheme} is the wrong protocol for a SecureLightningQueue Uri.  Only {Protocol} is accepted");
+            }
+
+            Address = address.ToMachineUri();
+            Port = address.Port;
+
+            QueueName = Address.Segments.Last();
+            Certificate = certificate;
+        }
+
+        public Uri Address { get; }
+
+        public int Port { get; }
+
+        public string QueueName { get; }
+        public X509Certificate Certificate { get; }
     }
 
     public static class UriExtensions
@@ -40,11 +79,6 @@ namespace FubuMVC.LightningQueues
         private static readonly HashSet<string> _locals = new HashSet<string>(new[]{"localhost", "127.0.0.1"}, StringComparer.OrdinalIgnoreCase);
 
         public static LightningUri ToLightningUri(this Uri uri)
-        {
-            return new LightningUri(uri);
-        }
-
-        public static LightningUri ToLightningUri(this string uri)
         {
             return new LightningUri(uri);
         }

@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using FubuCore;
 using FubuCore.Logging;
 using FubuCore.Reflection;
@@ -131,6 +132,13 @@ namespace FubuMVC.Core.ServiceBus.Configuration
                 yield return acceptedContentType;
             }
             yield return DefaultContentType;
+        }
+
+        public X509Certificate GetTransportCertificate(Uri uri)
+        {
+            return this.FirstOrDefault(
+                x => x.Uri.Scheme
+                    .Equals(uri.Scheme, StringComparison.InvariantCultureIgnoreCase))?.TransportCertificate;
         }
 
         public void AddReplyChannel(string protocol, Uri uri)

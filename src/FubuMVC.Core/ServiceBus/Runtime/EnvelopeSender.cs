@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FubuCore;
@@ -87,13 +87,24 @@ namespace FubuMVC.Core.ServiceBus.Runtime
         private void sendToChannel(Envelope envelope, ChannelNode node)
         {
             var replyUri = _router.ReplyUriFor(node);
-
             var headers = node.Send(envelope, _serializer, replyUri: replyUri);
-            _logger.InfoMessage(() => new EnvelopeSent(new EnvelopeToken
+
+            if (!replyUri.Scheme.Equals(node.Uri.Scheme, StringComparison.InvariantCultureIgnoreCase))
             {
-                Headers = headers,
-                Message = envelope.Message
-            }, node));
+                _logger.InfoMessage(() => new EnvelopeRejected(new EnvelopeToken
+                {
+                    Headers = headers,
+                    Message = envelope.Message
+                }, node, "Protocol Mismatch"));
+            }
+            else
+            {
+                _logger.InfoMessage(() => new EnvelopeSent(new EnvelopeToken
+                {
+                    Headers = headers,
+                    Message = envelope.Message
+                }, node));
+            }
         }
     }
 }
